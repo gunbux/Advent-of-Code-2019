@@ -69,7 +69,10 @@ class opcode:
         pointer = 0
         while True:
 
+##            print(f'Current memory is: {memory}')
 ##            print(f'Pointer location at {pointer}')
+##            print(f'Value at pointer is {memory[pointer]}')
+##            print(f'Next 3 values are {memory[pointer+1],memory[pointer+2],memory[pointer+3]}')
 
             if getopcode(memory[pointer]) == 1:
                 values = getValues(pointer,memory)
@@ -86,6 +89,40 @@ class opcode:
                 value = getValues(pointer,memory)
                 print(f'Value output is {value}')
                 pointer+=2
+
+            elif getopcode(memory[pointer]) == 5:
+                values = getValues(pointer,memory)
+                if values[0] != 0:
+                    print(f'Jumping to position: {values[1]}')
+                    pointer = values[1]
+                else:
+                    pointer+=3
+
+            elif getopcode(memory[pointer]) == 6:
+                values = getValues(pointer,memory)
+                if values[0] == 0:
+                    print(f'Jumping to position: {values[1]}')
+                    pointer = values[1]
+                else:
+                    pointer+=3
+
+            elif getopcode(memory[pointer]) == 7:
+                values = getValues(pointer,memory)
+                if values[0] < values[1]:
+                    memory[memory[pointer+3]] = 1
+
+                else:
+                    memory[memory[pointer+3]] = 0
+                pointer+=4
+
+            elif getopcode(memory[pointer]) == 8:
+                values = getValues(pointer,memory)
+                if values[0] == values[1]:
+                    memory[memory[pointer+3]] = 1
+
+                else:
+                    memory[memory[pointer+3]] = 0
+                pointer+=4
                     
             elif memory[pointer] == 3:
                 memory[memory[pointer+1]] = int(input('Input a number: '))
