@@ -93,7 +93,7 @@ class opcode:
             elif getopcode(memory[pointer]) == 5:
                 values = getValues(pointer,memory)
                 if values[0] != 0:
-                    print(f'Jumping to position: {values[1]}')
+##                    print(f'Jumping to position: {values[1]}')
                     pointer = values[1]
                 else:
                     pointer+=3
@@ -101,7 +101,7 @@ class opcode:
             elif getopcode(memory[pointer]) == 6:
                 values = getValues(pointer,memory)
                 if values[0] == 0:
-                    print(f'Jumping to position: {values[1]}')
+##                    print(f'Jumping to position: {values[1]}')
                     pointer = values[1]
                 else:
                     pointer+=3
