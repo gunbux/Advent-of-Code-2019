@@ -63,11 +63,12 @@ class intcode:
         self.memory[position] = value
         return self.memory
 
-    def run(self,inputlist = []):
+    def run(self,inputlist = [],halted = False):
 
-        print('Running program...')
+####        print('Running program...')
         memory = self.memory
         pointer = 0
+        output = None
         while True:
 
 ##            print(f'Current memory is: {memory}')
@@ -88,8 +89,15 @@ class intcode:
 
             elif getopcode(memory[pointer]) == 4:
                 value = getValues(pointer,memory)
-                print(f'Value output is {value}')
+####                print(f'Value output is {value}')
+
+                #Additional Modifications for automated I/O for Day 7
+                inputlist.append(value)
+                
+                output = value
                 pointer+=2
+
+##                return output,memory,halted
 
             elif getopcode(memory[pointer]) == 5:
                 values = getValues(pointer,memory)
@@ -137,7 +145,8 @@ class intcode:
             elif memory[pointer] == 99:
                 pointer+=1
                 print('Program terminated')
-                return self.getMemory()
+                halted = True
+                return output,memory,halted
             
             else:
                 print("FUCK")
